@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Демо-скрининг речи</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f8ff;
+      color: #26334b;
+      margin: 0;
+      padding: 30px 16px;
+    }
+
+    .box {
+      max-width: 680px;
+      margin: 30px auto;
+      padding: 32px;
+      background: white;
+      border-radius: 22px;
+      box-shadow: 0 10px 30px rgba(45, 67, 119, .12);
+    }
+
+    .label {
+      color: #5575d9;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin-top: 8px;
+    }
+
+    .word {
+      margin: 25px 0;
+      padding: 25px;
+      border-radius: 18px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: 800;
+      background: #e9f8f3;
+    }
+
+    button, .back {
+      display: inline-block;
+      padding: 13px 18px;
+      border: 0;
+      border-radius: 12px;
+      background: #5575d9;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #3655b4;
+    }
+
+    .secondary {
+      background: #eef1fa;
+      color: #3655b4;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .notice {
+      margin-top: 24px;
+      padding: 16px;
+      background: #fff8e8;
+      border-radius: 12px;
+      color: #6b572b;
+      font-size: 14px;
+    }
+
+    .progress {
+      margin: 18px 0;
+      height: 9px;
+      border-radius: 20px;
+      background: #e8ebf5;
+      overflow: hidden;
+    }
+
+    .progress div {
+      height: 100%;
+      background: #5575d9;
+      width: 20%;
+      transition: .3s;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="box">
+    <a class="back" href="index.html">← На главную</a>
+
+    <div id="welcome">
+      <p class="label">Демо-версия</p>
+      <h1>Игровой речевой скрининг</h1>
+      <p>
+        Ребёнку будут предложены несколько простых слов.
+        Это демонстрация интерфейса: она не проводит диагностику.
+      </p>
+
+      <label>
+        Возраст ребёнка:
+        <select id="age">
+          <option value="">Выберите возраст</option>
+          <option>3 года</option>
+          <option>4 года</option>
+          <option>5 лет</option>
+          <option>6 лет</option>
+          <option>7 лет</option>
+        </select>
+      </label>
+
+      <br><br>
+
+      <label>
+        <input type="checkbox" id="consent">
+        Я подтверждаю, что являюсь родителем/законным представителем
+        и согласен(-на) на демонстрационный формат скрининга.
+      </label>
+
+      <br><br>
+      <button onclick="startTest()">Начать</button>
+    </div>
+
+    <div id="test" class="hidden">
+      <p class="label" id="step">Задание 1 из 5</p>
+      <div class="progress"><div id="bar"></div></div>
+
+      <h1>Повтори слово</h1>
+      <div class="word" id="word">РЫБА</div>
+
+      <button onclick="recordDemo()">🎙️ Записать ответ</button>
+      <button class="secondary" onclick="nextQuestion()">Следующее слово →</button>
+
+      <p id="status"></p>
+    </div>
+
+    <div id="result" class="hidden">
+      <p class="label">Демо завершено</p>
+      <h1>Ваш пример отчёта</h1>
+
+      <p><strong>Статус:</strong> задания пройдены.</p>
+      <p>
+        В полной версии здесь появится предварительный отчёт
+        по качеству записи, выполнению заданий и наблюдаемым речевым признакам.
+      </p>
+
+      <div class="notice">
+        Важно: этот результат не является диагнозом и не заменяет
+        очную оценку логопеда, психолога или врача.
+      </div>
+
+      <br>
+      <a class="back" href="index.html">Вернуться на главную</a>
+    </div>
+  </main>
+
+  <script>
+    const words = ["РЫБА", "ЛАМПА", "СОК", "ШАР", "РАКЕТА"];
+    let current = 0;
+
+    function startTest() {
+      const age = document.getElementById("age").value;
+      const consent = document.getElementById("consent").checked;
+
+      if (!age || !consent) {
+        alert("Выберите возраст и подтвердите согласие.");
+        return;
+      }
+
+      document.getElementById("welcome").classList.add("hidden");
+      document.getElementById("test").classList.remove("hidden");
+    }
+
+    function recordDemo() {
+      document.getElementById("status").textContent =
+        "Демо: в рабочей версии здесь включится запись голоса.";
+    }
+
+    function nextQuestion() {
+      current++;
+
+      if (current >= words.length) {
+        document.getElementById("test").classList.add("hidden");
+        document.getElementById("result").classList.remove("hidden");
+        return;
+      }
+
+      document.getElementById("word").textContent = words[current];
+      document.getElementById("step").textContent =
+        "Задание " + (current + 1) + " из " + words.length;
+      document.getElementById("bar").style.width =
+        ((current + 1) / words.length * 100) + "%";
+      document.getElementById("status").textContent = "";
+    }
+  </script>
+</body>
+</html>
