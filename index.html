@@ -2,520 +2,205 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Говорим вместе — поддержка развития речи ребёнка</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Демо-скрининг речи</title>
 
   <style>
-    :root {
-      --blue: #5575d9;
-      --blue-dark: #3655b4;
-      --mint: #e9f8f3;
-      --pink: #fff0f4;
-      --text: #26334b;
-      --muted: #64718a;
-      --white: #ffffff;
-      --shadow: 0 14px 35px rgba(45, 67, 119, 0.12);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background: #fbfcff;
-      line-height: 1.6;
+      font-family: Arial, sans-serif;
+      background: #f6f8ff;
+      color: #26334b;
+      margin: 0;
+      padding: 30px 16px;
     }
 
-    .container {
-      width: min(1120px, 90%);
-      margin: 0 auto;
-    }
-
-    header {
-      padding: 18px 0;
-      background: rgba(255, 255, 255, 0.94);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      border-bottom: 1px solid #edf0fa;
-    }
-
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .logo {
-      text-decoration: none;
-      color: var(--blue-dark);
-      font-size: 23px;
-      font-weight: 800;
-    }
-
-    .logo span {
-      color: #f49aaa;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-    }
-
-    nav a {
-      color: var(--text);
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    nav a:hover {
-      color: var(--blue);
-    }
-
-    .button {
-      display: inline-block;
-      padding: 13px 21px;
-      border-radius: 12px;
-      background: var(--blue);
-      color: white;
-      text-decoration: none;
-      font-weight: 700;
-      transition: 0.2s;
-    }
-
-    .button:hover {
-      background: var(--blue-dark);
-      transform: translateY(-2px);
-    }
-
-    .button-light {
+    .box {
+      max-width: 680px;
+      margin: 30px auto;
+      padding: 32px;
       background: white;
-      color: var(--blue-dark);
-      border: 1px solid #dfe5fa;
-    }
-
-    .hero {
-      padding: 82px 0 65px;
-      background:
-        radial-gradient(circle at 80% 20%, #ffe1eb 0, transparent 25%),
-        radial-gradient(circle at 20% 75%, #dff7ee 0, transparent 30%),
-        #f7f9ff;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 48px;
-      align-items: center;
+      border-radius: 22px;
+      box-shadow: 0 10px 30px rgba(45, 67, 119, .12);
     }
 
     .label {
-      display: inline-block;
-      padding: 7px 12px;
-      border-radius: 20px;
-      background: #e6edff;
-      color: var(--blue-dark);
-      font-size: 14px;
+      color: #5575d9;
       font-weight: 700;
-      margin-bottom: 18px;
     }
 
     h1 {
-      font-size: clamp(38px, 5vw, 62px);
-      line-height: 1.08;
-      letter-spacing: -1.5px;
-      margin-bottom: 22px;
+      margin-top: 8px;
     }
 
-    .hero p {
-      max-width: 620px;
-      color: var(--muted);
-      font-size: 19px;
-      margin-bottom: 28px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .hero-card {
-      padding: 34px;
-      border-radius: 28px;
-      background: white;
-      box-shadow: var(--shadow);
+    .word {
+      margin: 25px 0;
+      padding: 25px;
+      border-radius: 18px;
       text-align: center;
-    }
-
-    .hero-icon {
-      width: 105px;
-      height: 105px;
-      margin: 0 auto 18px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: var(--pink);
-      font-size: 52px;
-    }
-
-    .hero-card h2 {
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-
-    .hero-card p {
-      color: var(--muted);
-      font-size: 16px;
-      margin: 0;
-    }
-
-    section {
-      padding: 78px 0;
-    }
-
-    .section-title {
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto 42px;
-    }
-
-    .section-title h2 {
-      font-size: 35px;
-      margin-bottom: 12px;
-    }
-
-    .section-title p {
-      color: var(--muted);
-      font-size: 17px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .card {
-      padding: 28px;
-      background: white;
-      border: 1px solid #edf0fa;
-      border-radius: 20px;
-      box-shadow: 0 8px 22px rgba(45, 67, 119, 0.06);
-    }
-
-    .card-icon {
-      width: 55px;
-      height: 55px;
-      display: grid;
-      place-items: center;
-      border-radius: 16px;
-      background: var(--mint);
-      font-size: 28px;
-      margin-bottom: 18px;
-    }
-
-    .card h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      color: var(--muted);
-    }
-
-    .about {
-      background: var(--mint);
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
-      gap: 50px;
-      align-items: center;
-    }
-
-    .circle {
-      width: min(330px, 100%);
-      aspect-ratio: 1;
-      display: grid;
-      place-items: center;
-      margin: auto;
-      border-radius: 50%;
-      background: #d5efe6;
-      border: 16px solid #f9fffc;
-      font-size: 108px;
-    }
-
-    .about h2 {
-      font-size: 35px;
-      margin-bottom: 17px;
-    }
-
-    .about p {
-      color: #526178;
-      margin-bottom: 16px;
-      font-size: 17px;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-      counter-reset: step;
-    }
-
-    .step {
-      padding: 28px;
-      border-radius: 20px;
-      background: #fff;
-      border: 1px solid #edf0fa;
-    }
-
-    .step-number {
-      color: var(--blue);
-      font-size: 14px;
+      font-size: 32px;
       font-weight: 800;
-      margin-bottom: 12px;
+      background: #e9f8f3;
     }
 
-    .step h3 {
-      margin-bottom: 9px;
-      font-size: 20px;
+    button, .back {
+      display: inline-block;
+      padding: 13px 18px;
+      border: 0;
+      border-radius: 12px;
+      background: #5575d9;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
     }
 
-    .step p {
-      color: var(--muted);
+    button:hover {
+      background: #3655b4;
+    }
+
+    .secondary {
+      background: #eef1fa;
+      color: #3655b4;
+    }
+
+    .hidden {
+      display: none;
     }
 
     .notice {
-      padding: 23px;
-      border-left: 5px solid #f5b446;
-      background: #fffaf0;
+      margin-top: 24px;
+      padding: 16px;
+      background: #fff8e8;
       border-radius: 12px;
-      color: #69552b;
-      max-width: 900px;
-      margin: 35px auto 0;
-    }
-
-    .contact {
-      text-align: center;
-      background: linear-gradient(135deg, #5676d9, #7594ed);
-      color: white;
-      border-radius: 28px;
-      padding: 55px 28px;
-    }
-
-    .contact h2 {
-      font-size: 36px;
-      margin-bottom: 12px;
-    }
-
-    .contact p {
-      max-width: 610px;
-      margin: 0 auto 25px;
-      font-size: 17px;
-      opacity: 0.94;
-    }
-
-    .contact .button {
-      background: white;
-      color: var(--blue-dark);
-    }
-
-    footer {
-      padding: 28px 0;
-      text-align: center;
-      color: var(--muted);
+      color: #6b572b;
       font-size: 14px;
     }
 
-    @media (max-width: 800px) {
-      nav a:not(.button) {
-        display: none;
-      }
+    .progress {
+      margin: 18px 0;
+      height: 9px;
+      border-radius: 20px;
+      background: #e8ebf5;
+      overflow: hidden;
+    }
 
-      .hero-grid,
-      .about-grid,
-      .cards,
-      .steps {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding: 55px 0;
-      }
-
-      .hero-card {
-        max-width: 480px;
-      }
-
-      section {
-        padding: 58px 0;
-      }
+    .progress div {
+      height: 100%;
+      background: #5575d9;
+      width: 20%;
+      transition: .3s;
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="container nav">
-      <a class="logo" href="#">Говорим<span>вместе</span></a>
+  <main class="box">
+    <a class="back" href="index.html">← На главную</a>
 
-      <nav>
-        <a href="#about">О платформе</a>
-        <a href="#help">Возможности</a>
-        <a href="#how">Как это работает</a>
-        <a class="button" href="#contact">Связаться</a>
-      </nav>
+    <div id="welcome">
+      <p class="label">Демо-версия</p>
+      <h1>Игровой речевой скрининг</h1>
+      <p>
+        Ребёнку будут предложены несколько простых слов.
+        Это демонстрация интерфейса: она не проводит диагностику.
+      </p>
+
+      <label>
+        Возраст ребёнка:
+        <select id="age">
+          <option value="">Выберите возраст</option>
+          <option>3 года</option>
+          <option>4 года</option>
+          <option>5 лет</option>
+          <option>6 лет</option>
+          <option>7 лет</option>
+        </select>
+      </label>
+
+      <br><br>
+
+      <label>
+        <input type="checkbox" id="consent">
+        Я подтверждаю, что являюсь родителем/законным представителем
+        и согласен(-на) на демонстрационный формат скрининга.
+      </label>
+
+      <br><br>
+      <button onclick="startTest()">Начать</button>
     </div>
-  </header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="label">Платформа для родителей и специалистов</div>
+    <div id="test" class="hidden">
+      <p class="label" id="step">Задание 1 из 5</p>
+      <div class="progress"><div id="bar"></div></div>
 
-          <h1>Помогаем детям говорить уверенно</h1>
+      <h1>Повтори слово</h1>
+      <div class="word" id="word">РЫБА</div>
 
-          <p>
-            Понятные материалы о развитии речи, полезные чек-листы
-            и бережная поддержка для семей, которые хотят лучше понять ребёнка.
-          </p>
+      <button onclick="recordDemo()">🎙️ Записать ответ</button>
+      <button class="secondary" onclick="nextQuestion()">Следующее слово →</button>
 
-          <div class="hero-buttons">
-            <a class="button" href="#help">Узнать больше</a>
-            <a class="button button-light" href="#contact">Задать вопрос</a>
-          </div>
-        </div>
+      <p id="status"></p>
+    </div>
 
-        <div class="hero-card">
-          <div class="hero-icon">💬</div>
-          <h2>Речь — это путь</h2>
-          <p>И не нужно проходить его в одиночку.</p>
-        </div>
+    <div id="result" class="hidden">
+      <p class="label">Демо завершено</p>
+      <h1>Ваш пример отчёта</h1>
+
+      <p><strong>Статус:</strong> задания пройдены.</p>
+      <p>
+        В полной версии здесь появится предварительный отчёт
+        по качеству записи, выполнению заданий и наблюдаемым речевым признакам.
+      </p>
+
+      <div class="notice">
+        Важно: этот результат не является диагнозом и не заменяет
+        очную оценку логопеда, психолога или врача.
       </div>
-    </section>
 
-    <section id="help">
-      <div class="container">
-        <div class="section-title">
-          <h2>Чем поможет платформа</h2>
-          <p>
-            Собираем полезную информацию в одном понятном и дружелюбном месте.
-          </p>
-        </div>
-
-        <div class="cards">
-          <article class="card">
-            <div class="card-icon">📚</div>
-            <h3>Понятные материалы</h3>
-            <p>
-              Статьи о развитии речи, возможных трудностях и поддержке ребёнка дома.
-            </p>
-          </article>
-
-          <article class="card">
-            <div class="card-icon">✅</div>
-            <h3>Чек-листы для родителей</h3>
-            <p>
-              Помогаем заметить особенности речи и подготовить вопросы для специалиста.
-            </p>
-          </article>
-
-          <article class="card">
-            <div class="card-icon">🤝</div>
-            <h3>Поддержка специалистов</h3>
-            <p>
-              Полезная навигация: когда и к кому можно обратиться за помощью.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="about" id="about">
-      <div class="container about-grid">
-        <div class="circle">🌱</div>
-
-        <div>
-          <h2>Без страха, давления и сложных слов</h2>
-          <p>
-            Мы хотим сделать информацию о речи детей доступной, бережной и понятной.
-            Родители смогут быстрее сориентироваться, а специалисты — делиться знаниями.
-          </p>
-          <p>
-            Наша цель — не ставить диагнозы онлайн, а помогать замечать важное
-            и делать следующий шаг к профессиональной помощи.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section id="how">
-      <div class="container">
-        <div class="section-title">
-          <h2>Как это работает</h2>
-          <p>Три простых шага, чтобы начать путь к пониманию.</p>
-        </div>
-
-        <div class="steps">
-          <div class="step">
-            <div class="step-number">ШАГ 01</div>
-            <h3>Изучите материалы</h3>
-            <p>Читайте статьи и знакомьтесь с темой развития речи в удобном темпе.</p>
-          </div>
-
-          <div class="step">
-            <div class="step-number">ШАГ 02</div>
-            <h3>Пройдите чек-лист</h3>
-            <p>Соберите наблюдения, которые помогут сформулировать вопросы.</p>
-          </div>
-
-          <div class="step">
-            <div class="step-number">ШАГ 03</div>
-            <h3>Обратитесь к специалисту</h3>
-            <p>При необходимости получите очную профессиональную консультацию.</p>
-          </div>
-        </div>
-
-        <div class="notice">
-          <strong>Важно:</strong> материалы на сайте носят информационный характер
-          и не заменяют очную диагностику, консультацию логопеда, психолога или врача.
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container contact" id="contact">
-        <h2>Создаём платформу вместе</h2>
-        <p>
-          Хотите поделиться идеей, стать первым пользователем или специалистом-партнёром?
-          Напишите нам.
-        </p>
-        <a class="button" href="mailto:your-email@example.com">
-          Написать нам
-        </a>
-      </div>
-    </section>
+      <br>
+      <a class="back" href="index.html">Вернуться на главную</a>
+    </div>
   </main>
 
-  <footer>
-    <div class="container">
-      © 2026 Говоримвместе. Платформа о развитии речи детей.
-    </div>
-  </footer>
+  <script>
+    const words = ["РЫБА", "ЛАМПА", "СОК", "ШАР", "РАКЕТА"];
+    let current = 0;
+
+    function startTest() {
+      const age = document.getElementById("age").value;
+      const consent = document.getElementById("consent").checked;
+
+      if (!age || !consent) {
+        alert("Выберите возраст и подтвердите согласие.");
+        return;
+      }
+
+      document.getElementById("welcome").classList.add("hidden");
+      document.getElementById("test").classList.remove("hidden");
+    }
+
+    function recordDemo() {
+      document.getElementById("status").textContent =
+        "Демо: в рабочей версии здесь включится запись голоса.";
+    }
+
+    function nextQuestion() {
+      current++;
+
+      if (current >= words.length) {
+        document.getElementById("test").classList.add("hidden");
+        document.getElementById("result").classList.remove("hidden");
+        return;
+      }
+
+      document.getElementById("word").textContent = words[current];
+      document.getElementById("step").textContent =
+        "Задание " + (current + 1) + " из " + words.length;
+      document.getElementById("bar").style.width =
+        ((current + 1) / words.length * 100) + "%";
+      document.getElementById("status").textContent = "";
+    }
+  </script>
 </body>
 </html>
