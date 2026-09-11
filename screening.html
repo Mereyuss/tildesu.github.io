@@ -2,477 +2,545 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Демо-скрининг речи</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tildesu — аудио-скрининг речи</title>
 
   <style>
+    :root {
+      --mint: #48b6ae;
+      --mint-dark: #32958e;
+      --mint-light: #e8f8f6;
+      --navy: #112b33;
+      --gray: #61747a;
+      --border: #dbe8e7;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f6f8ff;
-      color: #26334b;
       margin: 0;
-      padding: 30px 16px;
+      padding: 28px 16px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--navy);
+      background: #f0fbfa;
+      line-height: 1.55;
     }
 
     .box {
-      max-width: 680px;
-      margin: 30px auto;
-      padding: 32px;
-      background: white;
-      border-radius: 22px;
-      box-shadow: 0 10px 30px rgba(45, 67, 119, .12);
+      width: min(760px, 100%);
+      margin: 20px auto;
+      padding: 34px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: 0 14px 36px rgba(26, 94, 90, 0.10);
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 24px;
+      color: #4f696d;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .back:hover {
+      color: var(--mint-dark);
     }
 
     .label {
-      color: #5575d9;
-      font-weight: 700;
+      display: inline-block;
+      margin: 0 0 14px;
+      padding: 8px 15px;
+      border-radius: 50px;
+      color: var(--mint-dark);
+      background: var(--mint-light);
+      font-size: 14px;
+      font-weight: 800;
     }
 
     h1 {
-      margin-top: 8px;
+      margin: 0 0 15px;
+      font-size: clamp(30px, 5vw, 43px);
+      line-height: 1.15;
+      letter-spacing: -0.6px;
+    }
+
+    h2 {
+      margin-top: 28px;
+      font-size: 24px;
+    }
+
+    p {
+      color: var(--gray);
+      font-size: 17px;
     }
 
     .word {
       margin: 25px 0;
-      padding: 25px;
-      border-radius: 18px;
+      padding: 28px;
+      border-radius: 20px;
+      color: var(--mint-dark);
+      background: var(--mint-light);
       text-align: center;
-      font-size: 32px;
+      font-size: clamp(30px, 7vw, 48px);
       font-weight: 800;
-      background: #e9f8f3;
+      letter-spacing: 1px;
     }
 
-    button, .back {
+    .progress {
+      height: 10px;
+      margin: 14px 0 24px;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #dfeeed;
+    }
+
+    .progress div {
+      width: 20%;
+      height: 100%;
+      border-radius: 20px;
+      background: var(--mint);
+      transition: width 0.25s ease;
+    }
+
+    button,
+    .button {
       display: inline-block;
-      padding: 13px 18px;
+      margin: 7px 8px 7px 0;
+      padding: 13px 20px;
       border: 0;
-      border-radius: 12px;
-      background: #5575d9;
+      border-radius: 14px;
+      background: var(--mint);
       color: white;
-      text-decoration: none;
+      font-family: inherit;
       font-size: 16px;
-      font-weight: 700;
+      font-weight: 800;
+      text-decoration: none;
       cursor: pointer;
+      transition: 0.2s;
     }
 
-    button:hover {
-      background: #3655b4;
+    button:hover,
+    .button:hover {
+      background: var(--mint-dark);
+      transform: translateY(-2px);
     }
 
-    .secondary {
-      background: #eef1fa;
-      color: #3655b4;
+    button.secondary {
+      color: var(--mint-dark);
+      background: var(--mint-light);
+    }
+
+    button.secondary:hover {
+      background: #d5f1ee;
+    }
+
+    #status {
+      min-height: 25px;
+      margin-top: 12px;
+      color: var(--mint-dark);
+      font-weight: 700;
     }
 
     .hidden {
       display: none;
     }
 
+    fieldset {
+      margin: 34px 0;
+      padding: 0;
+      border: 0;
+    }
+
+    legend {
+      display: block;
+      margin-bottom: 16px;
+      font-size: 21px;
+      line-height: 1.4;
+      font-weight: 800;
+    }
+
+    .answer {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 48px;
+      margin: 7px 8px 7px 0;
+      padding: 10px 17px;
+      border: 2px solid var(--border);
+      border-radius: 25px;
+      background: #f5fcfb;
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .answer:hover {
+      border-color: var(--mint);
+      background: var(--mint-light);
+    }
+
+    .answer input {
+      accent-color: var(--mint);
+      transform: scale(1.16);
+    }
+
     .notice {
-      margin-top: 24px;
-      padding: 16px;
-      background: #fff8e8;
+      margin-top: 26px;
+      padding: 18px;
+      border-left: 5px solid #edbb54;
       border-radius: 12px;
-      color: #6b572b;
-      font-size: 14px;
+      color: #655227;
+      background: #fff8e7;
+      font-size: 15px;
     }
 
-    .progress {
-      margin: 18px 0;
-      height: 9px;
+    .step-indicator {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-bottom: 27px;
+      color: var(--mint-dark);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .step-indicator span {
+      padding: 7px 13px;
+      border-radius: 24px;
+      background: var(--mint-light);
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #bfeae5;
+    }
+
+    .dot.active {
+      width: 45px;
       border-radius: 20px;
-      background: #e8ebf5;
-      overflow: hidden;
+      background: var(--mint);
     }
 
-    .progress div {
-      height: 100%;
-      background: #5575d9;
-      width: 20%;
-      transition: .3s;
+    ul {
+      padding-left: 22px;
+      color: var(--gray);
+      font-size: 17px;
     }
-    fieldset {
-  border: 0;
-  padding: 0;
-  margin: 34px 0;
-}
 
-legend {
-  display: block;
-  margin-bottom: 16px;
-  font-size: 21px;
-  line-height: 1.4;
-  font-weight: 700;
-}
+    li {
+      margin-bottom: 10px;
+    }
 
-.answer {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 48px;
-  margin: 7px 8px 7px 0;
-  padding: 10px 18px;
-  border: 2px solid #dce5e5;
-  border-radius: 25px;
-  background: #f1fafa;
-  cursor: pointer;
-  font-size: 17px;
-}
+    @media (max-width: 520px) {
+      body {
+        padding: 15px 11px;
+      }
 
-.answer:hover {
-  border-color: #48b6ae;
-  background: #e2f6f3;
-}
+      .box {
+        padding: 25px 20px;
+        border-radius: 22px;
+      }
 
-.answer input {
-  accent-color: #48b6ae;
-  transform: scale(1.2);
-}
-
-#questionnaire h1 {
-  font-size: 38px;
-  line-height: 1.15;
-}
-    fieldset {
-  border: 0;
-  padding: 0;
-  margin: 34px 0;
-}
-
-legend {
-  display: block;
-  margin-bottom: 16px;
-  font-size: 21px;
-  line-height: 1.4;
-  font-weight: 700;
-}
-
-.answer {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 48px;
-  margin: 7px 8px 7px 0;
-  padding: 10px 18px;
-  border: 2px solid #dce5e5;
-  border-radius: 25px;
-  background: #f1fafa;
-  cursor: pointer;
-  font-size: 17px;
-}
-
-.answer:hover {
-  border-color: #48b6ae;
-  background: #e2f6f3;
-}
-
-.answer input {
-  accent-color: #48b6ae;
-  transform: scale(1.2);
-}
-
-#questionnaire h1 {
-  font-size: 38px;
-  line-height: 1.15;
-}
-
-.step-indicator {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 35px;
-  color: #46b6ae;
-  font-size: 19px;
-  font-weight: 700;
-}
-
-.step-indicator span {
-  padding: 10px 18px;
-  border-radius: 30px;
-  background: #e2f6f3;
-}
-
-.step-indicator i,
-.step-indicator b {
-  display: block;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #bdebe6;
-}
-
-.step-indicator b {
-  width: 55px;
-  border-radius: 20px;
-  background: #48b6ae;
-}
+      .answer {
+        font-size: 16px;
+      }
+    }
   </style>
 </head>
 
 <body>
   <main class="box">
+
     <a class="back" href="index.html">← На главную</a>
 
-    <div id="welcome">
-      <p class="label">Демо-версия</p>
-      <h1>Игровой речевой скрининг</h1>
+    <!-- Экран 1: начало -->
+    <section id="welcome">
+      <p class="label">Интерактивный скрининг</p>
+      <h1>Аудио-тест речи</h1>
+
       <p>
-        Ребёнку будут предложены несколько простых слов.
-        Это демонстрация интерфейса: она не проводит диагностику.
+        Ребёнку будут предложены пять простых слов. Пожалуйста, проходите
+        задания в спокойной обстановке. Это демонстрационная версия и не является диагностикой.
       </p>
 
-      <label>
-        Возраст ребёнка:
-        <select id="age">
-          <option value="">Выберите возраст</option>
-          <option>3 года</option>
-          <option>4 года</option>
-          <option>5 лет</option>
-          <option>6 лет</option>
-          <option>7 лет</option>
-        </select>
-      </label>
+      <label for="age"><strong>Возраст ребёнка:</strong></label>
+      <br>
+      <select id="age" style="margin: 10px 0 20px; padding: 11px; border-radius: 10px; border: 1px solid #dbe8e7; font-size: 16px;">
+        <option value="">Выберите возраст</option>
+        <option value="3–4 года">3–4 года</option>
+        <option value="5–6 лет">5–6 лет</option>
+        <option value="7+ лет">7+ лет</option>
+      </select>
 
-      <br><br>
+      <br>
 
-      <label>
+      <label style="display: block; margin: 10px 0 22px; color: #61747a;">
         <input type="checkbox" id="consent">
-        Я подтверждаю, что являюсь родителем/законным представителем
-        и согласен(-на) на демонстрационный формат скрининга.
+        Я являюсь родителем/законным представителем и согласен(-на)
+        пройти демонстрационный скрининг.
       </label>
 
-      <br><br>
-      <button onclick="startTest()">Начать</button>
-    </div>
+      <button type="button" id="startButton">Начать аудио-тест</button>
+      <p id="startError" style="display: none; color: #b24646; font-weight: 700;"></p>
+    </section>
 
-    <div id="test" class="hidden">
+    <!-- Экран 2: задания -->
+    <section id="test" class="hidden">
+      <div class="step-indicator">
+        <span>Аудио-задания</span>
+        <i class="dot active"></i>
+        <i class="dot"></i>
+        <i class="dot"></i>
+      </div>
+
       <p class="label" id="step">Задание 1 из 5</p>
-      <div class="progress"><div id="bar"></div></div>
+      <div class="progress">
+        <div id="bar"></div>
+      </div>
 
       <h1>Повтори слово</h1>
       <div class="word" id="word">РЫБА</div>
 
-      <button onclick="recordDemo()">🎙️ Записать ответ</button>
-      <button class="secondary" onclick="nextQuestion()">Следующее слово →</button>
+      <button type="button" id="recordButton">🎙️ Записать ответ</button>
+      <button type="button" class="secondary" id="nextButton">Следующее слово →</button>
 
       <p id="status"></p>
-    </div>
-<div id="questionnaire" class="hidden">
-  <div class="step-indicator">
-  <span>Интерактивный AI-скрининг</span>
-  <i></i>
-  <b></b>
-  <i></i>
-</div>
-  <p class="label">Интерактивный AI-скрининг</p>
 
-  <h1>Шаг 2. Клинический мини-опросник</h1>
+      <div class="notice">
+        В этой версии кнопка записи показывает работу интерфейса.
+        Аудио пока не сохраняется и не отправляется на сервер.
+      </div>
+    </section>
 
-  <p>
-    Пять коротких вопросов помогают собрать дополнительную информацию
-    о речи ребёнка. Ответы не являются диагнозом.
-  </p>
+    <!-- Экран 3: опросник -->
+    <section id="questionnaire" class="hidden">
+      <div class="step-indicator">
+        <span>Клинический мини-опросник</span>
+        <i class="dot"></i>
+        <i class="dot active"></i>
+        <i class="dot"></i>
+      </div>
 
-  <form id="questionnaireForm">
+      <h1>Шаг 2. Мини-опросник</h1>
 
-    <fieldset>
-      <legend>1. Укажите точный возраст ребёнка</legend>
+      <p>
+        Ответы помогут добавить контекст к предварительному отчёту.
+        Они не являются медицинской диагностикой.
+      </p>
 
-      <label class="answer">
-        <input type="radio" name="age" value="3–4 года" required>
-        3–4 года
-      </label>
+      <form id="questionnaireForm">
+        <fieldset>
+          <legend>1. Укажите точный возраст ребёнка</legend>
 
-      <label class="answer">
-        <input type="radio" name="age" value="5–6 лет">
-        5–6 лет
-      </label>
+          <label class="answer">
+            <input type="radio" name="childAge" value="3–4 года" required>
+            3–4 года
+          </label>
 
-      <label class="answer">
-        <input type="radio" name="age" value="7+ лет">
-        7+ лет
-      </label>
-    </fieldset>
+          <label class="answer">
+            <input type="radio" name="childAge" value="5–6 лет">
+            5–6 лет
+          </label>
 
-    <fieldset>
-      <legend>
-        2. Замечали ли вы повторение первых слогов
-        или застревание на звуках?
-      </legend>
+          <label class="answer">
+            <input type="radio" name="childAge" value="7+ лет">
+            7+ лет
+          </label>
+        </fieldset>
 
-      <label class="answer">
-        <input type="radio" name="repetitions" value="Да" required>
-        Да
-      </label>
+        <fieldset>
+          <legend>2. Замечали ли вы повторение первых слогов или застревание на звуках?</legend>
 
-      <label class="answer">
-        <input type="radio" name="repetitions" value="Нет">
-        Нет
-      </label>
+          <label class="answer">
+            <input type="radio" name="repetitions" value="Да" required>
+            Да
+          </label>
 
-      <label class="answer">
-        <input type="radio" name="repetitions" value="Редко">
-        Редко
-      </label>
-    </fieldset>
+          <label class="answer">
+            <input type="radio" name="repetitions" value="Нет">
+            Нет
+          </label>
 
-    <fieldset>
-      <legend>
-        3. Присутствует ли мышечное напряжение
-        на лице при попытке говорить?
-      </legend>
+          <label class="answer">
+            <input type="radio" name="repetitions" value="Редко">
+            Редко
+          </label>
+        </fieldset>
 
-      <label class="answer">
-        <input type="radio" name="tension" value="Да" required>
-        Да
-      </label>
+        <fieldset>
+          <legend>3. Присутствует ли мышечное напряжение на лице при попытке говорить?</legend>
 
-      <label class="answer">
-        <input type="radio" name="tension" value="Нет">
-        Нет
-      </label>
+          <label class="answer">
+            <input type="radio" name="tension" value="Да" required>
+            Да
+          </label>
 
-      <label class="answer">
-        <input type="radio" name="tension" value="Не уверены">
-        Не уверены
-      </label>
-    </fieldset>
+          <label class="answer">
+            <input type="radio" name="tension" value="Нет">
+            Нет
+          </label>
 
-    <fieldset>
-      <legend>
-        4. Понимают ли речь ребёнка незнакомые люди?
-      </legend>
+          <label class="answer">
+            <input type="radio" name="tension" value="Не уверены">
+            Не уверены
+          </label>
+        </fieldset>
 
-      <label class="answer">
-        <input type="radio" name="understanding" value="Обычно понимают" required>
-        Обычно понимают
-      </label>
+        <fieldset>
+          <legend>4. Понимают ли речь ребёнка незнакомые люди?</legend>
 
-      <label class="answer">
-        <input type="radio" name="understanding" value="Иногда понимают">
-        Иногда понимают
-      </label>
+          <label class="answer">
+            <input type="radio" name="understanding" value="Обычно понимают" required>
+            Обычно понимают
+          </label>
 
-      <label class="answer">
-        <input type="radio" name="understanding" value="Часто не понимают">
-        Часто не понимают
-      </label>
-    </fieldset>
+          <label class="answer">
+            <input type="radio" name="understanding" value="Иногда понимают">
+            Иногда понимают
+          </label>
 
-    <fieldset>
-      <legend>
-        5. Обращались ли вы раньше к логопеду?
-      </legend>
+          <label class="answer">
+            <input type="radio" name="understanding" value="Часто не понимают">
+            Часто не понимают
+          </label>
+        </fieldset>
 
-      <label class="answer">
-        <input type="radio" name="specialist" value="Да" required>
-        Да
-      </label>
+        <fieldset>
+          <legend>5. Обращались ли вы раньше к логопеду?</legend>
 
-      <label class="answer">
-        <input type="radio" name="specialist" value="Нет">
-        Нет
-      </label>
+          <label class="answer">
+            <input type="radio" name="specialist" value="Да" required>
+            Да
+          </label>
 
-      <label class="answer">
-        <input type="radio" name="specialist" value="Планируем">
-        Планируем
-      </label>
-    </fieldset>
+          <label class="answer">
+            <input type="radio" name="specialist" value="Нет">
+            Нет
+          </label>
 
-    <button type="submit">Получить предварительный отчёт</button>
-  </form>
+          <label class="answer">
+            <input type="radio" name="specialist" value="Планируем">
+            Планируем
+          </label>
+        </fieldset>
 
-  <div class="notice">
-    Ответы помогают описать контекст, но не подтверждают наличие
-    речевого нарушения и не заменяют консультацию специалиста.
-  </div>
-</div>
-   <div id="result" class="hidden">
-  <p class="label">Предварительный отчёт</p>
+        <button type="submit">Получить предварительный отчёт</button>
+      </form>
 
-  <h1>Скрининг завершён</h1>
+      <div class="notice">
+        Важно: ответы собираются только для демонстрации интерфейса
+        и не являются диагнозом.
+      </div>
+    </section>
 
-  <p>
-    Мы собрали результаты аудиозаданий и ответы мини-опросника.
-  </p>
+    <!-- Экран 4: результат -->
+    <section id="result" class="hidden">
+      <div class="step-indicator">
+        <span>Предварительный отчёт</span>
+        <i class="dot"></i>
+        <i class="dot"></i>
+        <i class="dot active"></i>
+      </div>
 
-  <div class="notice">
-    <strong>Важно:</strong>
-    этот результат не является диагнозом и не заменяет очную
-    консультацию логопеда, психолога или врача.
-  </div>
+      <h1>Скрининг завершён</h1>
 
-  <h2>Что можно сделать дальше</h2>
+      <p>Спасибо. Мы собрали демонстрационные ответы для предварительного отчёта.</p>
 
-  <ul>
-    <li>Прослушать аудиозаписи ещё раз.</li>
-    <li>Сохранить вопросы для разговора со специалистом.</li>
-    <li>При сохраняющихся трудностях обратиться к логопеду.</li>
-  </ul>
+      <div id="reportAnswers" class="notice"></div>
 
-  <a class="back" href="index.html">Вернуться на главную</a>
-</div>
-      <br>
-      <a class="back" href="index.html">Вернуться на главную</a>
-    </div>
+      <h2>Что можно сделать дальше</h2>
+      <ul>
+        <li>Обсудить наблюдения с логопедом.</li>
+        <li>Повторить аудиозадания в тихом помещении.</li>
+        <li>Следить за речью ребёнка в обычных ситуациях.</li>
+      </ul>
+
+      <div class="notice">
+        <strong>Важно:</strong> это не медицинский диагноз и не замена очной
+        консультации логопеда, психолога или врача.
+      </div>
+
+      <a class="button" href="index.html">Вернуться на главную</a>
+    </section>
   </main>
 
   <script>
     const words = ["РЫБА", "ЛАМПА", "СОК", "ШАР", "РАКЕТА"];
     let current = 0;
 
-    function startTest() {
-      const age = document.getElementById("age").value;
-      const consent = document.getElementById("consent").checked;
+    const welcome = document.getElementById("welcome");
+    const test = document.getElementById("test");
+    const questionnaire = document.getElementById("questionnaire");
+    const result = document.getElementById("result");
 
-      if (!age || !consent) {
-        alert("Выберите возраст и подтвердите согласие.");
+    const ageSelect = document.getElementById("age");
+    const consent = document.getElementById("consent");
+    const startError = document.getElementById("startError");
+
+    const wordElement = document.getElementById("word");
+    const stepElement = document.getElementById("step");
+    const bar = document.getElementById("bar");
+    const status = document.getElementById("status");
+
+    document.getElementById("startButton").addEventListener("click", function () {
+      if (!ageSelect.value || !consent.checked) {
+        startError.textContent = "Выберите возраст и подтвердите согласие, чтобы продолжить.";
+        startError.style.display = "block";
         return;
       }
 
-      document.getElementById("welcome").classList.add("hidden");
-      document.getElementById("test").classList.remove("hidden");
-    }
+      startError.style.display = "none";
+      welcome.classList.add("hidden");
+      test.classList.remove("hidden");
+    });
 
-    function recordDemo() {
-      document.getElementById("status").textContent =
-        "Демо: в рабочей версии здесь включится запись голоса.";
-    }
+    document.getElementById("recordButton").addEventListener("click", function () {
+      status.textContent = "Демо: в следующей версии здесь включится запись голоса.";
+    });
 
-    function nextQuestion() {
-      current++;
+    document.getElementById("nextButton").addEventListener("click", function () {
+      current += 1;
 
-     if (current >= words.length) {
-  document.getElementById("test").classList.add("hidden");
-  document.getElementById("questionnaire").classList.remove("hidden");
-  return;
-}
-    }
+      if (current >= words.length) {
+        test.classList.add("hidden");
+        questionnaire.classList.remove("hidden");
+        return;
+      }
 
-      document.getElementById("word").textContent = words[current];
-      document.getElementById("step").textContent =
-        "Задание " + (current + 1) + " из " + words.length;
-      document.getElementById("bar").style.width =
-        ((current + 1) / words.length * 100) + "%";
-      document.getElementById("status").textContent = "";
-    }
-    document
-  .getElementById("questionnaireForm")
-  .addEventListener("submit", function(event) {
-    event.preventDefault();
+      wordElement.textContent = words[current];
+      stepElement.textContent = "Задание " + (current + 1) + " из " + words.length;
+      bar.style.width = ((current + 1) / words.length * 100) + "%";
+      status.textContent = "";
+    });
 
-    const formData = new FormData(event.target);
-    const answers = Object.fromEntries(formData.entries());
+    document.getElementById("questionnaireForm").addEventListener("submit", function (event) {
+      event.preventDefault();
 
-    localStorage.setItem(
-      "speechScreeningAnswers",
-      JSON.stringify(answers)
-    );
+      const formData = new FormData(event.target);
+      const answers = Object.fromEntries(formData.entries());
 
-    document.getElementById("questionnaire").classList.add("hidden");
-    document.getElementById("result").classList.remove("hidden");
-  });
+      const reportText =
+        "<strong>Ответы мини-опросника:</strong><br>" +
+        "Возраст: " + answers.childAge + "<br>" +
+        "Повторения/застревания: " + answers.repetitions + "<br>" +
+        "Напряжение: " + answers.tension + "<br>" +
+        "Понимание речи: " + answers.understanding + "<br>" +
+        "Обращение к логопеду: " + answers.specialist;
+
+      document.getElementById("reportAnswers").innerHTML = reportText;
+
+      questionnaire.classList.add("hidden");
+      result.classList.remove("hidden");
+    });
   </script>
 </body>
 </html>
