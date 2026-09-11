@@ -91,6 +91,121 @@
       width: 20%;
       transition: .3s;
     }
+    fieldset {
+  border: 0;
+  padding: 0;
+  margin: 34px 0;
+}
+
+legend {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 21px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.answer {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  margin: 7px 8px 7px 0;
+  padding: 10px 18px;
+  border: 2px solid #dce5e5;
+  border-radius: 25px;
+  background: #f1fafa;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.answer:hover {
+  border-color: #48b6ae;
+  background: #e2f6f3;
+}
+
+.answer input {
+  accent-color: #48b6ae;
+  transform: scale(1.2);
+}
+
+#questionnaire h1 {
+  font-size: 38px;
+  line-height: 1.15;
+}
+    fieldset {
+  border: 0;
+  padding: 0;
+  margin: 34px 0;
+}
+
+legend {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 21px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.answer {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  margin: 7px 8px 7px 0;
+  padding: 10px 18px;
+  border: 2px solid #dce5e5;
+  border-radius: 25px;
+  background: #f1fafa;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.answer:hover {
+  border-color: #48b6ae;
+  background: #e2f6f3;
+}
+
+.answer input {
+  accent-color: #48b6ae;
+  transform: scale(1.2);
+}
+
+#questionnaire h1 {
+  font-size: 38px;
+  line-height: 1.15;
+}
+
+.step-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 35px;
+  color: #46b6ae;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.step-indicator span {
+  padding: 10px 18px;
+  border-radius: 30px;
+  background: #e2f6f3;
+}
+
+.step-indicator i,
+.step-indicator b {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #bdebe6;
+}
+
+.step-indicator b {
+  width: 55px;
+  border-radius: 20px;
+  background: #48b6ae;
+}
   </style>
 </head>
 
@@ -142,22 +257,162 @@
 
       <p id="status"></p>
     </div>
+<div id="questionnaire" class="hidden">
+  <div class="step-indicator">
+  <span>Интерактивный AI-скрининг</span>
+  <i></i>
+  <b></b>
+  <i></i>
+</div>
+  <p class="label">Интерактивный AI-скрининг</p>
 
-    <div id="result" class="hidden">
-      <p class="label">Демо завершено</p>
-      <h1>Ваш пример отчёта</h1>
+  <h1>Шаг 2. Клинический мини-опросник</h1>
 
-      <p><strong>Статус:</strong> задания пройдены.</p>
-      <p>
-        В полной версии здесь появится предварительный отчёт
-        по качеству записи, выполнению заданий и наблюдаемым речевым признакам.
-      </p>
+  <p>
+    Пять коротких вопросов помогают собрать дополнительную информацию
+    о речи ребёнка. Ответы не являются диагнозом.
+  </p>
 
-      <div class="notice">
-        Важно: этот результат не является диагнозом и не заменяет
-        очную оценку логопеда, психолога или врача.
-      </div>
+  <form id="questionnaireForm">
 
+    <fieldset>
+      <legend>1. Укажите точный возраст ребёнка</legend>
+
+      <label class="answer">
+        <input type="radio" name="age" value="3–4 года" required>
+        3–4 года
+      </label>
+
+      <label class="answer">
+        <input type="radio" name="age" value="5–6 лет">
+        5–6 лет
+      </label>
+
+      <label class="answer">
+        <input type="radio" name="age" value="7+ лет">
+        7+ лет
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        2. Замечали ли вы повторение первых слогов
+        или застревание на звуках?
+      </legend>
+
+      <label class="answer">
+        <input type="radio" name="repetitions" value="Да" required>
+        Да
+      </label>
+
+      <label class="answer">
+        <input type="radio" name="repetitions" value="Нет">
+        Нет
+      </label>
+
+      <label class="answer">
+        <input type="radio" name="repetitions" value="Редко">
+        Редко
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        3. Присутствует ли мышечное напряжение
+        на лице при попытке говорить?
+      </legend>
+
+      <label class="answer">
+        <input type="radio" name="tension" value="Да" required>
+        Да
+      </label>
+
+      <label class="answer">
+        <input type="radio" name="tension" value="Нет">
+        Нет
+      </label>
+
+      <label class="answer">
+        <input type="radio" name="tension" value="Не уверены">
+        Не уверены
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        4. Понимают ли речь ребёнка незнакомые люди?
+      </legend>
+
+      <label class="answer">
+        <input type="radio" name="understanding" value="Обычно понимают" required>
+        Обычно понимают
+      </label>
+
+      <label class="answer">
+        <input type="radio" name="understanding" value="Иногда понимают">
+        Иногда понимают
+      </label>
+
+      <label class="answer">
+        <input type="radio" name="understanding" value="Часто не понимают">
+        Часто не понимают
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        5. Обращались ли вы раньше к логопеду?
+      </legend>
+
+      <label class="answer">
+        <input type="radio" name="specialist" value="Да" required>
+        Да
+      </label>
+
+      <label class="answer">
+        <input type="radio" name="specialist" value="Нет">
+        Нет
+      </label>
+
+      <label class="answer">
+        <input type="radio" name="specialist" value="Планируем">
+        Планируем
+      </label>
+    </fieldset>
+
+    <button type="submit">Получить предварительный отчёт</button>
+  </form>
+
+  <div class="notice">
+    Ответы помогают описать контекст, но не подтверждают наличие
+    речевого нарушения и не заменяют консультацию специалиста.
+  </div>
+</div>
+   <div id="result" class="hidden">
+  <p class="label">Предварительный отчёт</p>
+
+  <h1>Скрининг завершён</h1>
+
+  <p>
+    Мы собрали результаты аудиозаданий и ответы мини-опросника.
+  </p>
+
+  <div class="notice">
+    <strong>Важно:</strong>
+    этот результат не является диагнозом и не заменяет очную
+    консультацию логопеда, психолога или врача.
+  </div>
+
+  <h2>Что можно сделать дальше</h2>
+
+  <ul>
+    <li>Прослушать аудиозаписи ещё раз.</li>
+    <li>Сохранить вопросы для разговора со специалистом.</li>
+    <li>При сохраняющихся трудностях обратиться к логопеду.</li>
+  </ul>
+
+  <a class="back" href="index.html">Вернуться на главную</a>
+</div>
       <br>
       <a class="back" href="index.html">Вернуться на главную</a>
     </div>
@@ -188,11 +443,12 @@
     function nextQuestion() {
       current++;
 
-      if (current >= words.length) {
-        document.getElementById("test").classList.add("hidden");
-        document.getElementById("result").classList.remove("hidden");
-        return;
-      }
+     if (current >= words.length) {
+  document.getElementById("test").classList.add("hidden");
+  document.getElementById("questionnaire").classList.remove("hidden");
+  return;
+}
+    }
 
       document.getElementById("word").textContent = words[current];
       document.getElementById("step").textContent =
@@ -201,6 +457,22 @@
         ((current + 1) / words.length * 100) + "%";
       document.getElementById("status").textContent = "";
     }
+    document
+  .getElementById("questionnaireForm")
+  .addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const answers = Object.fromEntries(formData.entries());
+
+    localStorage.setItem(
+      "speechScreeningAnswers",
+      JSON.stringify(answers)
+    );
+
+    document.getElementById("questionnaire").classList.add("hidden");
+    document.getElementById("result").classList.remove("hidden");
+  });
   </script>
 </body>
 </html>
